@@ -24,10 +24,6 @@ module.exports = async function(callback){
     let AddressBluzelleESR = BluzelleESRInstance.address;
     console.log("Address of Token Contract: " + AddressBluzelleESR);
     console.log("");
-    console.log("");
-    console.log("Added a swarm!");
-    console.log("");
-    console.log("");
     recordTransaction("BluzelleESR.new", receiptToken, true);
 
 
