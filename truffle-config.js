@@ -22,7 +22,7 @@ const HDWalletProvider = require('truffle-hdwallet-provider');
 const infuraKey = "YOUR INFURA API KEY";
 //
 const fs = require('fs');
-const mnemonic = fs.readFileSync("/home/ajail/Desktop/Work/BluzelleBox/BluzelleESR/secret").toString().trim();
+const mnemonic = fs.readFileSync("secret").toString().trim();
 
 module.exports = {
   /**
