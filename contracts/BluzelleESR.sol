@@ -1,4 +1,5 @@
 pragma solidity >=0.4.21 <0.6.0;
+pragma experimental ABIEncoderV2;
 
 contract BluzelleESR {
     bool public isActive = false;
@@ -6,23 +7,23 @@ contract BluzelleESR {
 
     struct Node {
         uint256 nodeCount;
-        bytes32 nodeHostName;
-        bytes32 nodeStatus;  
+        string nodeHostName;
+        string nodeStatus;  
     }
 
     struct Swarm {
         uint256 swarmCount;
         uint256 swarmSize;
-        bytes32 swarmGeo;
+        string swarmGeo;
         bool isTrusted;
-        bytes32 swarmType;
+        string swarmType;
         uint256 swarmCost;
-        bytes32[] nodeList; 
+        string[] nodeList; 
     }
 
-    bytes32[] swarmList;
-    mapping(bytes32 => Node) NodeStructs;
-    mapping(bytes32 => Swarm) SwarmStructs;
+    string[] swarmList;
+    mapping(string => Node) NodeStructs;
+    mapping(string => Swarm) SwarmStructs;
 
     constructor () public {
         ownerAddress = msg.sender;
@@ -45,7 +46,7 @@ contract BluzelleESR {
     }
 
     //add swarm to the registry.  Only the owner of the contract can add to the registry
-    function addSwarm(bytes32 swarmID, uint256 swarmSize, bytes32 swarmGeo, bool isTrusted, bytes32 swarmType, uint256 swarmCost, bytes32[] memory nodeList) 
+    function addSwarm(string memory swarmID, uint256 swarmSize, string memory swarmGeo, bool isTrusted, string memory swarmType, uint256 swarmCost, string[] memory nodeList) 
     public 
     onlyOwner() 
     returns(bool success)
@@ -66,21 +67,36 @@ contract BluzelleESR {
     }
 
     //remove swarm to the registry.  Only the owner of the contract can remove from the registry
-    function removeSwarm(bytes32 swarmID) public onlyOwner(){
-        require(swarmList[(SwarmStructs[swarmID].swarmCount) - 1].length > 0,"This Swarm has already been removed.");
-        //creates a gap in the array, no automatic element shift
-        delete swarmList[(SwarmStructs[swarmID].swarmCount) - 1];
+    function removeSwarm(string memory swarmID) 
+    public 
+    onlyOwner() 
+    returns(bool)
+    {
+        uint j;
+
+        for(j=0; j< swarmList.length; j++) {
+            if(keccak256(abi.encodePacked(swarmList[j])) == keccak256(abi.encodePacked(swarmID)))
+            {
+                delete swarmList[j];
+                delete SwarmStructs[swarmID];
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     //add node to a swarm given the swarm ID
-    function addNode(bytes32 swarmID, bytes32 nodeHostName, bytes32 nodeStatus) 
+    function addNode(string memory swarmID, string memory nodeHostName, string memory nodeStatus) 
     public 
     onlyOwner()
     returns(bool success)
     {
-        NodeStructs[swarmID].nodeCount = getNodeCount(swarmID) + 1;
-        NodeStructs[swarmID].nodeHostName = nodeHostName;
-        NodeStructs[swarmID].nodeStatus = nodeStatus;
+        NodeStructs[nodeHostName].nodeCount = getNodeCount(swarmID) + 1;
+        NodeStructs[nodeHostName].nodeHostName = nodeHostName;
+        NodeStructs[nodeHostName].nodeStatus = nodeStatus;
 
         SwarmStructs[swarmID].nodeList.push(nodeHostName);
 
@@ -88,21 +104,29 @@ contract BluzelleESR {
     }
 
     //remove node from a swarm given the swarmID and nodehostname
-    function removeNode(bytes32 swarmID, bytes32 nodeHostName) 
+    function removeNode(string memory swarmID, string memory nodeHostName) 
     public 
     onlyOwner()
     returns(bool success)
     {
-        require(NodeStructs[swarmID].nodeHostName == nodeHostName, "No nodes with that host name located in the swarm");
-        require(SwarmStructs[swarmID].nodeList[(NodeStructs[swarmID].nodeCount) - 1].length > 0,"This node has already been removed.");
+        uint j;
 
-        delete SwarmStructs[swarmID].nodeList[(NodeStructs[swarmID].nodeCount) - 1];
-
-        return true;
+        for(j=0; j< SwarmStructs[swarmID].nodeList.length; j++) {
+            if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeHostName)))
+            {
+                delete SwarmStructs[swarmID].nodeList[j];
+                delete NodeStructs[nodeHostName];
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        } 
     }
 
     //returns number of nodes in a swarm
-    function getNodeCount(bytes32 swarmID) public view onlyIfActive() returns(uint256) {
+    function getNodeCount(string memory swarmID) public view onlyIfActive() returns(uint256) {
         return (SwarmStructs[swarmID].nodeList.length);
     }
 
@@ -112,15 +136,15 @@ contract BluzelleESR {
     }
 
     //returns the specified swarm info
-    function getSwarmInfo(bytes32 swarmID) 
+    function getSwarmInfo(string memory swarmID) 
     public view 
     onlyIfActive() 
     returns(uint256 size,
-        bytes32 geo,
+        string memory geo,
         bool trust,
-        bytes32 swarmtype,
+        string memory swarmtype,
         uint256 cost,
-        bytes32[] memory nodelist
+        string[] memory nodelist
     ) 
     {
         return (SwarmStructs[swarmID].swarmSize, 
@@ -132,30 +156,36 @@ contract BluzelleESR {
     }
 
     //returns the specified swarm info
-    function getNodeInfo(bytes32 swarmID, bytes32 nodeHostName) 
-    public view 
+    function getNodeInfo(string memory swarmID, string memory nodeHostName) 
+    public view
     onlyIfActive() 
-    returns(bytes32 hostname, bytes32 status) 
+    returns(string memory hostname, string memory status) 
     {
-        require(NodeStructs[swarmID].nodeHostName == nodeHostName, "No node with that hostname in the swarm");
-        
-        return (NodeStructs[swarmID].nodeHostName, NodeStructs[swarmID].nodeStatus);
+        uint j;
+
+        for(j=0; j< SwarmStructs[swarmID].nodeList.length; j++) {
+            if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeHostName)))
+            {
+                return (NodeStructs[nodeHostName].nodeHostName, NodeStructs[nodeHostName].nodeStatus);
+            }
+        }
+
     }
 
     //returns the list of swarms by swarm id on the network
     function getSwarmList() 
     public view 
     onlyIfActive() 
-    returns(bytes32[] memory)
+    returns(string[] memory)
     {
         return swarmList;
     }
 
     //returns a list of node from a given swarm ID
-    function getNodeList(bytes32 swarmID) 
+    function getNodeList(string memory swarmID) 
     public view 
     onlyIfActive()
-    returns(bytes32[] memory)
+    returns(string[] memory)
     {
         return SwarmStructs[swarmID].nodeList;
     }
