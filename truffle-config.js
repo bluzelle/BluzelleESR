@@ -20,7 +20,6 @@
 const fs = require('fs');
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const infuraKey = fs.readFileSync("infura").toString().trim();
-//
 const mnemonic = fs.readFileSync("secret").toString().trim();
 
 module.exports = {
@@ -33,7 +32,7 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
-
+  plugins: [ "truffle-security" ],
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
