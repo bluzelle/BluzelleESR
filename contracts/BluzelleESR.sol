@@ -79,11 +79,6 @@ contract BluzelleESR {
             {
                 delete swarmList[j];
                 delete SwarmStructs[swarmID];
-                return true;
-            }
-            else
-            {
-                return false;
             }
         }
     }
@@ -107,7 +102,7 @@ contract BluzelleESR {
     function removeNode(string memory swarmID, string memory nodeHostName) 
     public 
     onlyOwner()
-    returns(bool success)
+    returns(bool)
     {
         uint j;
 
@@ -116,11 +111,6 @@ contract BluzelleESR {
             {
                 delete SwarmStructs[swarmID].nodeList[j];
                 delete NodeStructs[nodeHostName];
-                return true;
-            }
-            else
-            {
-                return false;
             }
         } 
     }
