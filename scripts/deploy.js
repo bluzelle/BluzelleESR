@@ -18,13 +18,13 @@ module.exports = async function(callback){
         receipts.push([ description, receipt ])
     }
     
-    //deploy token contract
+
     let BluzelleESRInstance = await BluzelleESR.new({ from: myAccount });
-    let receiptToken = await web3.eth.getTransactionReceipt(BluzelleESRInstance.transactionHash);
+    let receiptTx = await web3.eth.getTransactionReceipt(BluzelleESRInstance.transactionHash);
     let AddressBluzelleESR = BluzelleESRInstance.address;
     console.log("Address of Token Contract: " + AddressBluzelleESR);
     console.log("");
-    recordTransaction("BluzelleESR.new", receiptToken, true);
+    recordTransaction("BluzelleESR.new", receiptTx, true);
 
 
     //
