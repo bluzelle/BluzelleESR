@@ -89,58 +89,58 @@ Note: Ensure that you are only copying the ABI portion of the json file and not 
 ## Contract functions:
 
 ```
-  function addSwarm(bytes32 swarmID, uint256 swarmSize, bytes32 swarmGeo, bool isTrusted, bytes32 swarmType, uint256 swarmCost, bytes32[] memory nodeList)
+  function addSwarm(string swarmID, uint256 swarmSize, string swarmGeo, bool isTrusted, string swarmType, uint256 swarmCost, string[] memory nodeList)
 ```
 
 addSwarm() - A function that adds a swarm to the ESR
 
-  -Only contract owner can call this function
-  -swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
-  -swarmSize is a numeric value representation of swarm size in bytes
-  -swarmGeo = location of the swarm
-  -isTrusted = whether the swarm is trusted or trustless
-  -swarmType = Either 'Disk' or 'In-Memory'
-  -swarmCost = a scale representation from 1-10 with 10 being the most exprensive
-  -nodeList[] = an array of nodes joined in the particular swarm
+  - Only contract owner can call this function
+  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - swarmSize is a numeric value representation of swarm size in bytes
+  - swarmGeo = location of the swarm
+  - isTrusted = whether the swarm is trusted or trustless
+  - swarmType = Either 'Disk' or 'In-Memory'
+  - swarmCost = a scale representation from 1-10 with 10 being the most exprensive
+  - nodeList[] = an array of nodes joined in the particular swarm
 
 ```
-  function removeSwarm(bytes32 swarmID)
+  function removeSwarm(string swarmID)
 ```
 
 removeSwarm() - A function that removes a swarm to the ESR
 
-  -Only contract owner can call this function
-  -swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - Only contract owner can call this function
+  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
 
 ```
-  function addNode(bytes32 swarmID, bytes32 nodeHostName, bytes32 nodeStatus) 
+  function addNode(string swarmID, string nodeHostName, string nodeStatus) 
 ```
 
 addNode() - A function that adds a node to a specfic swarm given the swarm ID
 
-  -Only contract owner can call this function
-  -swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
-  -nodeHostName = the URL of the node (http://testnet.bluzelle.com:5050)
-  -nodeStatus = if the node is online or offline
+  - Only contract owner can call this function
+  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - nodeHostName = the URL of the node (http://testnet.bluzelle.com:5050)
+  - nodeStatus = if the node is online or offline
 
 ```
-  function removeNode(bytes32 swarmID, bytes32 nodeHostName) 
+  function removeNode(string swarmID, string nodeHostName) 
 ```
 
 removeNode() - A function that removes a node from a specified swarm ID and node host name
 
-  -Only contract owner can call this function
-  -swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
-  -nodeHostName = the URL of the node (http://testnet.bluzelle.com:5050) to remove from given swarm
+  - Only contract owner can call this function
+  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - nodeHostName = the URL of the node (http://testnet.bluzelle.com:5050) to remove from given swarm
 
 ```
-  function getNodeCount(bytes32 swarmID)
+  function getNodeCount(string swarmID)
 ```
 
 getNodeCount() - A function that returns the number of nodes in a specific swarm
 
-  -Only can be called if contract is active
-  -swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - Only can be called if contract is active
+  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
 
 ```
   function getSwarmCount()
@@ -148,26 +148,26 @@ getNodeCount() - A function that returns the number of nodes in a specific swarm
 
 getSwarmCount() - A function that returns the number of swarms on the network
 
-  -Only can be called if contract is active
+  - Only can be called if contract is active
 
 ```
-  function getSwarmInfo(bytes32 swarmID) 
+  function getSwarmInfo(string swarmID) 
 ```
 
 getSwarmInfo() - A function that returns information about the specified swarm
 
-  -Only can be called if contract is active
-  -swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - Only can be called if contract is active
+  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
 
 ```
-  function getNodeInfo(bytes32 swarmID, bytes32 nodeHostName) 
+  function getNodeInfo(string swarmID, string nodeHostName) 
 ```
 
 getNodeInfo() - A function that returns information about a certain node in a specific swarm
 
-  -Only can be called if contract is active
-  -swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
-  -nodeHostName = the URL of the node (http://testnet.bluzelle.com:5050)
+  - Only can be called if contract is active
+  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - nodeHostName = the URL of the node (http://testnet.bluzelle.com:5050)
 
 ```
   function getSwarmList()  
@@ -175,16 +175,16 @@ getNodeInfo() - A function that returns information about a certain node in a sp
 
 getSwarmList() - A function that returns a list of swarms on the network
 
-  -Only can be called if contract is active
+  - Only can be called if contract is active
 
 ```
-  function getNodeList(bytes32 swarmID)  
+  function getNodeList(string swarmID)  
 ```
 
 getNodeList() - A function that returns a list of nodes from a specified swarm
 
-  -Only can be called if contract is active
-  -swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - Only can be called if contract is active
+  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
 
 ```
   function deactivateContract() 
@@ -192,7 +192,7 @@ getNodeList() - A function that returns a list of nodes from a specified swarm
 
 deactivateContract() - A function that deactivates the contract
 
-  -Only can be called by the Contract owner
+  - Only can be called by the Contract owner
 
 
 
