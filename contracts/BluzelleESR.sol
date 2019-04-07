@@ -1,4 +1,4 @@
-pragma solidity >=0.4.21 <0.6.0;
+pragma solidity >=0.4.22 <0.6.0;
 pragma experimental ABIEncoderV2;
 
 contract BluzelleESR {
@@ -21,7 +21,7 @@ contract BluzelleESR {
         string[] nodeList; 
     }
 
-    string[] swarmList;
+    string[] public swarmList;
     mapping(string => Node) NodeStructs;
     mapping(string => Swarm) SwarmStructs;
 

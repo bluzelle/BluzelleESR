@@ -1,0 +1,29 @@
+language: node_js
+sudo: required
+node_js:
+- 8.11.3
+env:
+  matrix:
+  - CXX=g++-4.8
+  global:
+  - secure: SvEcVIBvvoIoPpcq79uQkysP4uFAswDfno5fcAYzE3H64dbbVhbe0oFihHE5mzdJGAweWC7bAnh2lUye7s8CYE/cITkbbazAtzJ5/kD5zkluQDRwJqDhGn8Yv4ISvL8ms3OLbKS3vQJYp9AVovR8P9vAnrF7RX1IhozysHRm2RHtqs3OJ9JOn2N2Cz5EOFx2ZhMZqRzFwxLoZCzF0jR5vqGzgnAj65vhsstl1EdrZkgIB48gBSeTK95iZUAwreawnI6CCrvbaV/zirz5Zv0Xp2Tj+PbglzFmMMc7icPi2OSy3J8/Zto22+2OrDrUiiRe9zTAGZ3lIu4yB3UmcbAS+ARxcOO5BvRjxTA0MHyqgiXIkN4yuAf6cBDpfuAILWbrYLpwbFhk64Zp4d3LEAvXIzIf/2KPGQT4kxUiw4SWARHoNccSWF8ybnWG4mDys9q0EFkBEyAXFBILUpoABL/No0sS6RxvbTXVkRdh3QC6eaiGh8JCotnIIKoiqj6lD2l3OlzrPpGpo0k8rFF9BWYlthY/wvL0LKJZeH/Q9mFoTh+WGi2l+7F0IuzJBlK5yu291In+1gaC8ssGzRsHtIy2tpmdG7I9nePs+xFqOPZQqtQpi/oL9iovLcir0SjRiv+O9YaL4WdKo2zPKYLg6lD9MmxDSzwPdqVZae2qj+d50BY=
+  - secure: BMOYlfuwJCWdQf6AkseaoO3OQ0P9C4srgPdfV59FOIzJlaua8fsBiRR2pI9aZnKNokQ3ewVciaJ+Zst/ZOT6nqtuQugBRjhEiLyj9o61yAch1Gtsq7q4SuUUnIsCHSZxONM5uM5EdhtGdKy7Di/FWrjUJO34ltgcKVpcJB1128mqqF6xmKpd7LtKpySiWzwZqXIXKQ49ZOKK3qb8yXnPIv3yJ4CkZm8uCnsDWtC1v3cnfo3tk6UXjI3MQnQn3x5T184FtZ2tDHCTbhlYKE+Ar9IpAqfq+8NuMufw3gF+t5qKqrafOyz9PeD9XiwwxeFPWHWC/LRveDinyvsG+PEnB+mXxmJpRp1lHyX2vxBQ5v2hZit1tlyNTbTbz8VWfd2kErEmoVmaDmFcGzARaLW6CRaM/GCLcjQzzuAXdlRXa4y/CqxpspW41qaepyxABK1p6BmlU67Ip2Ogxk9KBvFj9yOrrpiMdmcoH8fTxBVpS+2FDQLseAgm0jfwbwVs7FsLYOz1/lRWndVwiQg3cn/5zXX+e/ihgH+1J1IbEA60lBIxqnbxURWf7s1tl8n8qtM/lHQOyfMQq3gEuQUg7WiGr34fYg3AZ7hI2vPFNIKnyK0dP3Sl7jxhZisje2TYmJmyM5MUhbj5ex4xtlet417AQLAbjell2rN3Xn4u2CI/NPo=
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - build-essential
+    - g++-4.8
+before_install:
+- export CXX="g++-4.8"
+- npm install -g npm@latest
+- npm install -g ganache-cli truffle
+- npm install -g @cleanunicorn/mythos
+install:
+- npm install
+script:
+- ganache-cli &
+- truffle test
+- mythos analyze contracts/BluzelleESR.sol BluzelleESR --mythxEthAddress=$MYTHX_ETH_ADDRESS --mythxPassword=$MYTHX_PASSWORD
+
