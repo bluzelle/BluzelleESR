@@ -32,7 +32,7 @@ module.exports = async function(callback){
             SwarmInfo.cost.toString(10) == 0 &&
             SwarmInfo.nodelist.length == 0){
 
-                //TODO: Dynamically call during swarm creation?
+                //TODO: Dynamic call during swarm creation?
                 await BluzelleESRInstance.addSwarm("BluzelleSwarm",7,"Canada",true,"Disk",0,[],{ from: myAccount });
 
                 for(var i=0; i<jsonObj.length; i++){
