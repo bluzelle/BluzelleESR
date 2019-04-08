@@ -28,7 +28,7 @@ install:
 script:
 - ganache-cli &
 - truffle test
-- mythos analyze contracts/BluzelleESR.sol BluzelleESR --mythxEthAddress=$MYTHX_ETH_ADDRESS
-  --mythxPassword=$MYTHX_PASSWORD
+- mythos analyze contracts/BluzelleESR.sol BluzelleESR --mythxEthAddress=MYTHX_ETH_ADDRESS
+  --mythxPassword=MYTHX_PASSWORD
 - truffle compile
 - truffle exec scripts/deploy_test.js --network ropsten
