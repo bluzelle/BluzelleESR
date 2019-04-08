@@ -78,9 +78,9 @@ contract('Bluzelle ESR Contract', function(accounts) {
                 [], 
                 {from: accounts[0]});
 
-            await BluzelleESRInstance.addNode("TestSwarmID3", "http://test.bluzelle.com:5050", "online", {from: accounts[0]});
+            await BluzelleESRInstance.addNode("TestSwarmID3", "127.0.0.1", "node_0", 8080, 5050, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==", {from: accounts[0]});
             let updatedResults = await BluzelleESRInstance.getSwarmInfo("TestSwarmID3")
-            assert.deepEqual(updatedResults.nodelist,["http://test.bluzelle.com:5050"])
+            assert.deepEqual(updatedResults.nodelist,["127.0.0.1"])
         });
 
         it('should be successfu in removing a node from a swarm', async () => {
@@ -94,11 +94,11 @@ contract('Bluzelle ESR Contract', function(accounts) {
                 [], 
                 {from: accounts[0]});
 
-            await BluzelleESRInstance.addNode("TestSwarmID4", "http://test.bluzelle.com:5050", "online", {from: accounts[0]});
+            await BluzelleESRInstance.addNode("TestSwarmID4", "127.0.0.1", "node_0", 8080, 5050, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==", {from: accounts[0]});
             let updatedResults = await BluzelleESRInstance.getSwarmInfo("TestSwarmID4")
-            assert.deepEqual(updatedResults.nodelist,["http://test.bluzelle.com:5050"])
+            assert.deepEqual(updatedResults.nodelist,["127.0.0.1"])
 
-            await BluzelleESRInstance.removeNode("TestSwarmID4", "http://test.bluzelle.com:5050", {from: accounts[0]});
+            await BluzelleESRInstance.removeNode("TestSwarmID4", "127.0.0.1", {from: accounts[0]});
             let result = await BluzelleESRInstance.getSwarmInfo("TestSwarmID4") 
             assert.deepEqual(result.nodelist,[''])
         });
@@ -129,9 +129,9 @@ contract('Bluzelle ESR Contract', function(accounts) {
         });
 
         it('should return number of nodes from a specific swarm', async () => {
-            await BluzelleESRInstance.addNode("TestSwarmID6", "http://test1.bluzelle.com:5050", "online", {from: accounts[0]});
-            await BluzelleESRInstance.addNode("TestSwarmID6", "http://test2.bluzelle.com:5050", "online", {from: accounts[0]});
-            await BluzelleESRInstance.addNode("TestSwarmID6", "http://test3.bluzelle.com:5050", "online", {from: accounts[0]});
+            await BluzelleESRInstance.addNode("TestSwarmID6", "127.0.0.1", "node_0", 8080, 5050, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==", {from: accounts[0]});
+            await BluzelleESRInstance.addNode("TestSwarmID6", "127.0.0.1", "node_1", 8080, 5051, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pB==", {from: accounts[0]});
+            await BluzelleESRInstance.addNode("TestSwarmID6", "127.0.0.1", "node_2", 8080, 5052, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pC==", {from: accounts[0]});
 
             assert.equal((await BluzelleESRInstance.getNodeCount("TestSwarmID6")).toString(10),3); 
         });

@@ -7,8 +7,11 @@ contract BluzelleESR {
 
     struct Node {
         uint256 nodeCount;
-        string nodeHostName;
-        string nodeStatus;  
+        string nodeHost;
+        uint256 nodeHttpPort;
+        string nodeName;
+        uint256 nodePort;
+        string nodeUUID;  
     }
 
     struct Swarm {
@@ -84,22 +87,30 @@ contract BluzelleESR {
     }
 
     //add node to a swarm given the swarm ID
-    function addNode(string memory swarmID, string memory nodeHostName, string memory nodeStatus) 
+    function addNode(string memory swarmID, 
+    string memory nodeHost, 
+    string memory nodeName, 
+    uint256 nodeHttpPort, 
+    uint256 nodePort, 
+    string memory nodeUUID) 
     public 
     onlyOwner()
     returns(bool success)
     {
-        NodeStructs[nodeHostName].nodeCount = getNodeCount(swarmID) + 1;
-        NodeStructs[nodeHostName].nodeHostName = nodeHostName;
-        NodeStructs[nodeHostName].nodeStatus = nodeStatus;
+        NodeStructs[nodeHost].nodeCount = getNodeCount(swarmID) + 1;
+        NodeStructs[nodeHost].nodeHost = nodeHost;
+        NodeStructs[nodeHost].nodeName = nodeName;
+        NodeStructs[nodeHost].nodeHttpPort = nodeHttpPort;
+        NodeStructs[nodeHost].nodePort = nodePort;
+        NodeStructs[nodeHost].nodeUUID = nodeUUID;
 
-        SwarmStructs[swarmID].nodeList.push(nodeHostName);
+        SwarmStructs[swarmID].nodeList.push(nodeHost);
 
         return true;
     }
 
-    //remove node from a swarm given the swarmID and nodehostname
-    function removeNode(string memory swarmID, string memory nodeHostName) 
+    //remove node from a swarm given the swarmID and nodeHost
+    function removeNode(string memory swarmID, string memory nodeHost) 
     public 
     onlyOwner()
     returns(bool)
@@ -107,10 +118,10 @@ contract BluzelleESR {
         uint j;
 
         for(j=0; j< SwarmStructs[swarmID].nodeList.length; j++) {
-            if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeHostName)))
+            if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeHost)))
             {
                 delete SwarmStructs[swarmID].nodeList[j];
-                delete NodeStructs[nodeHostName];
+                delete NodeStructs[nodeHost];
             }
         } 
     }
@@ -146,7 +157,7 @@ contract BluzelleESR {
     }
 
     //returns the specified swarm info
-    function getNodeInfo(string memory swarmID, string memory nodeHostName) 
+    function getNodeInfo(string memory swarmID, string memory nodeHost) 
     public view
     onlyIfActive() 
     returns(string memory hostname, string memory status) 
@@ -154,9 +165,9 @@ contract BluzelleESR {
         uint j;
 
         for(j=0; j< SwarmStructs[swarmID].nodeList.length; j++) {
-            if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeHostName)))
+            if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeHost)))
             {
-                return (NodeStructs[nodeHostName].nodeHostName, NodeStructs[nodeHostName].nodeStatus);
+                return (NodeStructs[nodeHost].nodeHost, NodeStructs[nodeHost].nodeName);
             }
         }
 

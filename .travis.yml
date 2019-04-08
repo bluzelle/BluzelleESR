@@ -30,3 +30,6 @@ script:
 - truffle test
 - mythos analyze contracts/BluzelleESR.sol BluzelleESR --mythxEthAddress=$MYTHX_ETH_ADDRESS
   --mythxPassword=$MYTHX_PASSWORD
+after_success:
+- if [ "$TRAVIS_BRANCH" = "devel" ]; then truffle exec scripts/deploy_test.js --network ropsten; fi
+- if [ "$TRAVIS_BRANCH" = "master" ]; then truffle exec scripts/deploy_test.js --network ropsten; fi
