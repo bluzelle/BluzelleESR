@@ -9,16 +9,7 @@ We will use their services for accessing the Ethereum blockchain (testnet ropste
 
 # Installation
 
-Install the following by running these commands:
-
-```
-npm install truffle -g
-
-npm install truffle-hdwallet-provider
-
-npm install fs
-
-```
+Install the dependencies by running `npm install`.
 
 You will also need Ganache (formerly TestRPC), to run this project locally, which can be downloaded here: https://truffleframework.com/ganache
 
@@ -26,7 +17,7 @@ You will also need Ganache (formerly TestRPC), to run this project locally, whic
 ## Deploying Local
 
 1) Start Ganache and take note of the port it's running on (i.e. 7545)
-2) In the truffle-config.js file, ensure that the port number for development under networks is the same as your Ganache instance.
+2) In the truffle.js file, ensure that the port number for development under networks is the same as your Ganache instance.
 
 ```
     development: {
@@ -38,25 +29,25 @@ You will also need Ganache (formerly TestRPC), to run this project locally, whic
 
 3) run the following command to compile the solidity contracts:
 ```
-    truffle compile
+    npm run truffle compile
 ```
 
 4a) run the following command to deploy the contract to your Ganache instance:
 ```
-    truffle migrate
+    npm run truffle migrate
 ```
 
 4b) If you would like to deploy your contracts to your Ganache instance using an external script (webjs library) then run the following commands from the root directory:
 ```
     cd scripts
-    truffle exec deploy.js
+    npm run truffle exec deploy.js
 ```
 
 
 ## Deploying to Ropsten
 1) create a file in root directory called 'secret' (without a file extension).  Place your Ropsten Ethereum address mnemonic in this file (words are seperated by one space)
 
-2) Take your infura API key after signing up with them and place it in the truffle-config.js at this line:
+2) Take your infura API key after signing up with them and place it in the truffle.js at this line:
 
 ```
   const infuraKey = "YOUR INFURA API KEY";
@@ -64,12 +55,12 @@ You will also need Ganache (formerly TestRPC), to run this project locally, whic
 
 3) Ensure contracts are built by running the following command:
 ```
-  truffle compile
+  npm run truffle compile
 ```
 
 4) Run the following command to deploy the contracts to Ropsten network:
 ```
-  truffle migrate --reset --network ropsten
+  npm run truffle migrate --reset --network ropsten
 ```
 
 Once deployed, the console will provide the contract address which you can use to interact with or view on Etherscan.

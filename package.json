@@ -1,0 +1,24 @@
+{
+  "name": "bluzelle-esr",
+  "version": "0.0.0",
+  "description": "Bluzelle Ethereum Smart Contract Registry with a purpose of provisioning and tracking Swarms and Nodes",
+  "main": "",
+  "scripts": {
+    "truffle": "truffle"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluzelle/BluzelleESR.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bluzelle/BluzelleESR/issues"
+  },
+  "homepage": "https://github.com/bluzelle/BluzelleESR#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "truffle": "^5.0.12",
+    "truffle-hdwallet-provider": "^1.0.6"
+  }
+}
