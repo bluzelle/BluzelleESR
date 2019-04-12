@@ -32,6 +32,7 @@ script:
   --mythxPassword=$MYTHX_PASSWORD
 - truffle compile
 deploy:
+  skip_cleanup: true
   provider: script
   script: truffle exec scripts/deploy_test.js --network ropsten
   on:
