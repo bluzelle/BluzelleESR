@@ -95,7 +95,7 @@ Note: Ensure that you are only copying the ABI portion of the json file and not 
 addSwarm() - A function that adds a swarm to the ESR
 
   - Only contract owner can call this function
-  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - swarmID represents the SID of the swarm. 
   - swarmSize is a numeric value representation of swarm size in bytes
   - swarmGeo = location of the swarm
   - isTrusted = whether the swarm is trusted or trustless
@@ -110,18 +110,21 @@ addSwarm() - A function that adds a swarm to the ESR
 removeSwarm() - A function that removes a swarm to the ESR
 
   - Only contract owner can call this function
-  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - swarmID represents the SID of the swarm.  
 
 ```
-  function addNode(string swarmID, string nodeHostName, string nodeStatus) 
+  function addNode(string swarmID, string nodeHost, string nodeName, uint256 nodeHttpPort, uint256 nodePort, string nodeUUID) 
 ```
 
 addNode() - A function that adds a node to a specfic swarm given the swarm ID
 
   - Only contract owner can call this function
-  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
-  - nodeHostName = the URL of the node (http://testnet.bluzelle.com:5050)
-  - nodeStatus = if the node is online or offline
+  - swarmID represents the SID of the swarm.  
+  - nodeHost = the IP address of the node (127.0.0.1)
+  - nodeName = name of the node (node_01)
+  - nodeHttpPort = http port of the node (8080)
+  - nodePort = port where node is exposed (5050)
+  - nodeUUID = unique ID of node (MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==)
 
 ```
   function removeNode(string swarmID, string nodeHostName) 
@@ -130,7 +133,7 @@ addNode() - A function that adds a node to a specfic swarm given the swarm ID
 removeNode() - A function that removes a node from a specified swarm ID and node host name
 
   - Only contract owner can call this function
-  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - swarmID represents the SID of the swarm.  
   - nodeHostName = the URL of the node (http://testnet.bluzelle.com:5050) to remove from given swarm
 
 ```
@@ -140,7 +143,7 @@ removeNode() - A function that removes a node from a specified swarm ID and node
 getNodeCount() - A function that returns the number of nodes in a specific swarm
 
   - Only can be called if contract is active
-  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - swarmID represents the SID of the swarm.  
 
 ```
   function getSwarmCount()
@@ -157,7 +160,7 @@ getSwarmCount() - A function that returns the number of swarms on the network
 getSwarmInfo() - A function that returns information about the specified swarm
 
   - Only can be called if contract is active
-  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - swarmID represents the SID of the swarm.  
 
 ```
   function getNodeInfo(string swarmID, string nodeHostName) 
@@ -166,7 +169,7 @@ getSwarmInfo() - A function that returns information about the specified swarm
 getNodeInfo() - A function that returns information about a certain node in a specific swarm
 
   - Only can be called if contract is active
-  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - swarmID represents the SID of the swarm.  
   - nodeHostName = the URL of the node (http://testnet.bluzelle.com:5050)
 
 ```
@@ -184,7 +187,7 @@ getSwarmList() - A function that returns a list of swarms on the network
 getNodeList() - A function that returns a list of nodes from a specified swarm
 
   - Only can be called if contract is active
-  - swarmID represents the SID of the swarm.  Input will need to be in hex format (0xacc...)
+  - swarmID represents the SID of the swarm.  
 
 ```
   function deactivateContract() 
