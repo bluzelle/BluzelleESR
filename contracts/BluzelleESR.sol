@@ -97,20 +97,20 @@ contract BluzelleESR {
     onlyOwner()
     returns(bool success)
     {
-        NodeStructs[nodeHost].nodeCount = getNodeCount(swarmID) + 1;
-        NodeStructs[nodeHost].nodeHost = nodeHost;
-        NodeStructs[nodeHost].nodeName = nodeName;
-        NodeStructs[nodeHost].nodeHttpPort = nodeHttpPort;
-        NodeStructs[nodeHost].nodePort = nodePort;
-        NodeStructs[nodeHost].nodeUUID = nodeUUID;
+        NodeStructs[nodeUUID].nodeCount = getNodeCount(swarmID) + 1;
+        NodeStructs[nodeUUID].nodeHost = nodeHost;
+        NodeStructs[nodeUUID].nodeName = nodeName;
+        NodeStructs[nodeUUID].nodeHttpPort = nodeHttpPort;
+        NodeStructs[nodeUUID].nodePort = nodePort;
+        NodeStructs[nodeUUID].nodeUUID = nodeUUID;
 
-        SwarmStructs[swarmID].nodeList.push(nodeHost);
+        SwarmStructs[swarmID].nodeList.push(nodeUUID);
 
         return true;
     }
 
-    //remove node from a swarm given the swarmID and nodeHost
-    function removeNode(string memory swarmID, string memory nodeHost) 
+    //remove node from a swarm given the swarmID and nodeUUID
+    function removeNode(string memory swarmID, string memory nodeUUID) 
     public 
     onlyOwner()
     returns(bool)
@@ -118,10 +118,10 @@ contract BluzelleESR {
         uint j;
 
         for(j=0; j< SwarmStructs[swarmID].nodeList.length; j++) {
-            if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeHost)))
+            if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeUUID)))
             {
                 delete SwarmStructs[swarmID].nodeList[j];
-                delete NodeStructs[nodeHost];
+                delete NodeStructs[nodeUUID];
             }
         } 
     }
@@ -156,18 +156,28 @@ contract BluzelleESR {
         SwarmStructs[swarmID].nodeList);
     }
 
+
     //returns the specified swarm info
-    function getNodeInfo(string memory swarmID, string memory nodeHost) 
+    function getNodeInfo(string memory swarmID, string memory nodeUUID) 
     public view
     onlyIfActive() 
-    returns(string memory hostname, string memory status) 
+    returns(uint256 nodeCount,
+        string memory nodeHost,
+        uint256 nodeHttpPort,
+        string memory nodeName,
+        uint256 nodePort
+    ) 
     {
         uint j;
 
         for(j=0; j< SwarmStructs[swarmID].nodeList.length; j++) {
-            if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeHost)))
+            if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeUUID)))
             {
-                return (NodeStructs[nodeHost].nodeHost, NodeStructs[nodeHost].nodeName);
+                return (NodeStructs[nodeUUID].nodeCount,
+                NodeStructs[nodeUUID].nodeHost,
+                NodeStructs[nodeUUID].nodeHttpPort,
+                NodeStructs[nodeUUID].nodeName,
+                NodeStructs[nodeUUID].nodePort);
             }
         }
 
