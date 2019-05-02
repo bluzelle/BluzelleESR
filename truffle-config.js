@@ -1,11 +1,11 @@
 
-// const fs = require('fs');
+const fs = require('fs');
 const HDWalletProvider = require('truffle-hdwallet-provider');
-// const infuraKey = fs.readFileSync("infura").toString().trim();
-// const mnemonic = fs.readFileSync("secret").toString().trim();
+const infuraKey = fs.readFileSync("infura").toString().trim();
+const mnemonic = fs.readFileSync("secret").toString().trim();
 
-const infuraKey = process.env.INFURA;
-const mnemonic = process.env.MNEMONIC;
+// const infuraKey = process.env.INFURA;
+// const mnemonic = process.env.MNEMONIC;
 
 module.exports = {
 

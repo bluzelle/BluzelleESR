@@ -160,14 +160,23 @@ contract BluzelleESR {
     function getNodeInfo(string memory swarmID, string memory nodeHost) 
     public view
     onlyIfActive() 
-    returns(string memory hostname, string memory status) 
+    returns(string memory nodehost, 
+    string memory nodename, 
+    uint256 nodehttpport, 
+    uint256 nodeport, 
+    string memory nodeuuid) 
     {
         uint j;
 
         for(j=0; j< SwarmStructs[swarmID].nodeList.length; j++) {
             if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeHost)))
             {
-                return (NodeStructs[nodeHost].nodeHost, NodeStructs[nodeHost].nodeName);
+                
+                return (NodeStructs[nodeHost].nodeHost,
+                NodeStructs[nodeHost].nodeName,
+                NodeStructs[nodeHost].nodeHttpPort,
+                NodeStructs[nodeHost].nodePort,
+                NodeStructs[nodeHost].nodeUUID);
             }
         }
 
