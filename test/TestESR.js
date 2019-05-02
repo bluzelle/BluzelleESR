@@ -78,9 +78,11 @@ contract('Bluzelle ESR Contract', function(accounts) {
                 [], 
                 {from: accounts[0]});
 
-            await BluzelleESRInstance.addNode("TestSwarmID3", "127.0.0.1", "node_0", 8080, 5050, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==", {from: accounts[0]});
+            const uuid = "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==";
+
+            await BluzelleESRInstance.addNode("TestSwarmID3", "127.0.0.1", "node_0", 8080, 5050, uuid, {from: accounts[0]});
             let updatedResults = await BluzelleESRInstance.getSwarmInfo("TestSwarmID3")
-            assert.deepEqual(updatedResults.nodelist,["127.0.0.1"])
+            assert.deepEqual(updatedResults.nodelist,[uuid])
         });
 
         it('should be successfu in removing a node from a swarm', async () => {
@@ -94,11 +96,13 @@ contract('Bluzelle ESR Contract', function(accounts) {
                 [], 
                 {from: accounts[0]});
 
-            await BluzelleESRInstance.addNode("TestSwarmID4", "127.0.0.1", "node_0", 8080, 5050, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==", {from: accounts[0]});
-            let updatedResults = await BluzelleESRInstance.getSwarmInfo("TestSwarmID4")
-            assert.deepEqual(updatedResults.nodelist,["127.0.0.1"])
+            const uuid = "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==";
 
-            await BluzelleESRInstance.removeNode("TestSwarmID4", "127.0.0.1", {from: accounts[0]});
+            await BluzelleESRInstance.addNode("TestSwarmID4", "127.0.0.1", "node_0", 8080, 5050, uuid, {from: accounts[0]});
+            let updatedResults = await BluzelleESRInstance.getSwarmInfo("TestSwarmID4")
+            assert.deepEqual(updatedResults.nodelist,[uuid])
+
+            await BluzelleESRInstance.removeNode("TestSwarmID4", uuid, {from: accounts[0]});
             let result = await BluzelleESRInstance.getSwarmInfo("TestSwarmID4") 
             assert.deepEqual(result.nodelist,[''])
         });
