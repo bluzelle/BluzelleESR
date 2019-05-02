@@ -6,7 +6,7 @@ var receipts = []
 
 //owner
 var myAccount = "0x9cE2037b7bb23526222B55DAB84cF9ea450C223e";
-var ropstenContract = "0x407cA38Ded7929843BCF1f00A3303FC7dFdc12fC";
+var ropstenContract = "0x3e4BDd757322eF358664090c69b6927BdB6cf2De";
 
 module.exports = async function(callback){
     //record transaction summary
