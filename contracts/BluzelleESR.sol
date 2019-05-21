@@ -128,12 +128,38 @@ contract BluzelleESR {
 
     //returns number of nodes in a swarm
     function getNodeCount(string memory swarmID) public view onlyIfActive() returns(uint256) {
-        return (SwarmStructs[swarmID].nodeList.length);
+
+        uint i;
+        uint256 trueCount = 0;
+        bytes memory nodeEntryBytes;
+        
+        for(i=0; i<SwarmStructs[swarmID].nodeList.length; i++){
+            nodeEntryBytes = bytes(SwarmStructs[swarmID].nodeList[i]);
+            if(nodeEntryBytes.length != 0)
+            {
+                trueCount = trueCount + 1;
+            }
+        }
+
+        return trueCount;
     }
 
     //returns number of swarms on the network
     function getSwarmCount() public view onlyIfActive() returns(uint256) {
-        return (swarmList.length);
+
+        uint i;
+        uint256 trueCount = 0;
+        bytes memory swarmEntryBytes;
+        
+        for(i=0; i<swarmList.length; i++){
+            swarmEntryBytes = bytes(swarmList[i]);
+            if(swarmEntryBytes.length != 0)
+            {
+                trueCount = trueCount + 1;
+            }
+        }
+
+        return trueCount;
     }
 
     //returns the specified swarm info
