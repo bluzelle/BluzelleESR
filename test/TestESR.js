@@ -129,7 +129,7 @@ contract('Bluzelle ESR Contract', function(accounts) {
                 {from: accounts[0]});
             
             //count previous test swarms
-            assert.equal((await BluzelleESRInstance.getSwarmCount()).toString(10),6);    
+            assert.equal((await BluzelleESRInstance.getSwarmCount()).toString(10),5);    
         });
 
         it('should return number of nodes from a specific swarm', async () => {
