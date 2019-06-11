@@ -3,5 +3,4 @@ build
 secret
 infura
 issues*
-package-lock.json
 mythx
