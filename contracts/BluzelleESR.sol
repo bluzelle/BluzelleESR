@@ -54,15 +54,29 @@ contract BluzelleESR {
     onlyOwner() 
     returns(bool success)
     {
-        SwarmStructs[swarmID].swarmCount = getSwarmCount() + 1;
-        SwarmStructs[swarmID].swarmSize = swarmSize;
-        SwarmStructs[swarmID].swarmGeo = swarmGeo;
-        SwarmStructs[swarmID].isTrusted = isTrusted;
-        SwarmStructs[swarmID].swarmType = swarmType;
-        SwarmStructs[swarmID].swarmCost = swarmCost;
-        SwarmStructs[swarmID].nodeList = nodeList;
+        uint j;
+        uint instanceSwarmID;
 
-        swarmList.push(swarmID);
+        instanceSwarmID = 0;
+
+        for(j=0; j< swarmList.length; j++) {
+            if(keccak256(abi.encodePacked(swarmList[j])) == keccak256(abi.encodePacked(swarmID)))
+            {
+                instanceSwarmID = instanceSwarmID + 1;
+            }
+        }
+
+        if(instanceSwarmID == 0)
+        {
+            SwarmStructs[swarmID].swarmCount = getSwarmCount() + 1;
+            SwarmStructs[swarmID].swarmSize = swarmSize;
+            SwarmStructs[swarmID].swarmGeo = swarmGeo;
+            SwarmStructs[swarmID].isTrusted = isTrusted;
+            SwarmStructs[swarmID].swarmType = swarmType;
+            SwarmStructs[swarmID].swarmCost = swarmCost;
+            SwarmStructs[swarmID].nodeList = nodeList;
+            swarmList.push(swarmID);
+        }
 
         success = true;
 
@@ -97,14 +111,29 @@ contract BluzelleESR {
     onlyOwner()
     returns(bool success)
     {
-        NodeStructs[nodeUUID].nodeCount = getNodeCount(swarmID) + 1;
-        NodeStructs[nodeUUID].nodeHost = nodeHost;
-        NodeStructs[nodeUUID].nodeName = nodeName;
-        NodeStructs[nodeUUID].nodeHttpPort = nodeHttpPort;
-        NodeStructs[nodeUUID].nodePort = nodePort;
-        NodeStructs[nodeUUID].nodeUUID = nodeUUID;
+        uint j;
+        uint instanceNodeUUID;
 
-        SwarmStructs[swarmID].nodeList.push(nodeUUID);
+        instanceNodeUUID = 0;
+
+        for(j=0; j< SwarmStructs[swarmID].nodeList.length; j++) {
+            if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeUUID)))
+            {
+                instanceNodeUUID = instanceNodeUUID + 1;
+            }
+        }
+
+        if(instanceNodeUUID == 0)
+        {
+            NodeStructs[nodeUUID].nodeCount = getNodeCount(swarmID) + 1;
+            NodeStructs[nodeUUID].nodeHost = nodeHost;
+            NodeStructs[nodeUUID].nodeName = nodeName;
+            NodeStructs[nodeUUID].nodeHttpPort = nodeHttpPort;
+            NodeStructs[nodeUUID].nodePort = nodePort;
+            NodeStructs[nodeUUID].nodeUUID = nodeUUID;
+
+            SwarmStructs[swarmID].nodeList.push(nodeUUID);
+        }
 
         return true;
     }
