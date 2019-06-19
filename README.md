@@ -104,7 +104,7 @@ removeSwarm() - A function that removes a swarm to the ESR
   - swarmID represents the SID of the swarm.  
 
 ```
-  function addNode(string swarmID, string nodeHost, string nodeName, uint256 nodeHttpPort, uint256 nodePort, string nodeUUID) 
+  function addNode(string swarmID, string nodeHost, string nodeName, uint256 nodePort, string nodeUUID) 
 ```
 
 addNode() - A function that adds a node to a specfic swarm given the swarm ID
@@ -113,7 +113,6 @@ addNode() - A function that adds a node to a specfic swarm given the swarm ID
   - swarmID represents the SID of the swarm.  
   - nodeHost = the IP address of the node (127.0.0.1)
   - nodeName = name of the node (node_01)
-  - nodeHttpPort = http port of the node (8080)
   - nodePort = port where node is exposed (5050)
   - nodeUUID = unique ID of node (MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==)
 
