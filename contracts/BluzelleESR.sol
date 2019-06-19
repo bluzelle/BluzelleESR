@@ -8,7 +8,6 @@ contract BluzelleESR {
     struct Node {
         uint256 nodeCount;
         string nodeHost;
-        uint256 nodeHttpPort;
         string nodeName;
         uint256 nodePort;
         string nodeUUID;  
@@ -103,8 +102,7 @@ contract BluzelleESR {
     //add node to a swarm given the swarm ID
     function addNode(string memory swarmID, 
     string memory nodeHost, 
-    string memory nodeName, 
-    uint256 nodeHttpPort, 
+    string memory nodeName,
     uint256 nodePort, 
     string memory nodeUUID) 
     public 
@@ -128,7 +126,6 @@ contract BluzelleESR {
             NodeStructs[nodeUUID].nodeCount = getNodeCount(swarmID) + 1;
             NodeStructs[nodeUUID].nodeHost = nodeHost;
             NodeStructs[nodeUUID].nodeName = nodeName;
-            NodeStructs[nodeUUID].nodeHttpPort = nodeHttpPort;
             NodeStructs[nodeUUID].nodePort = nodePort;
             NodeStructs[nodeUUID].nodeUUID = nodeUUID;
 
@@ -218,7 +215,6 @@ contract BluzelleESR {
     onlyIfActive() 
     returns(uint256 nodeCount,
         string memory nodeHost,
-        uint256 nodeHttpPort,
         string memory nodeName,
         uint256 nodePort
     ) 
@@ -230,7 +226,6 @@ contract BluzelleESR {
             {
                 return (NodeStructs[nodeUUID].nodeCount,
                 NodeStructs[nodeUUID].nodeHost,
-                NodeStructs[nodeUUID].nodeHttpPort,
                 NodeStructs[nodeUUID].nodeName,
                 NodeStructs[nodeUUID].nodePort);
             }
