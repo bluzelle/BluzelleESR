@@ -80,7 +80,7 @@ contract('Bluzelle ESR Contract', function(accounts) {
 
             const uuid = "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==";
 
-            await BluzelleESRInstance.addNode("TestSwarmID3", "127.0.0.1", "node_0", 8080, 5050, uuid, {from: accounts[0]});
+            await BluzelleESRInstance.addNode("TestSwarmID3", "127.0.0.1", "node_0", 5050, uuid, {from: accounts[0]});
             let updatedResults = await BluzelleESRInstance.getSwarmInfo("TestSwarmID3")
             assert.deepEqual(updatedResults.nodelist,[uuid])
         });
@@ -98,7 +98,7 @@ contract('Bluzelle ESR Contract', function(accounts) {
 
             const uuid = "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==";
 
-            await BluzelleESRInstance.addNode("TestSwarmID4", "127.0.0.1", "node_0", 8080, 5050, uuid, {from: accounts[0]});
+            await BluzelleESRInstance.addNode("TestSwarmID4", "127.0.0.1", "node_0", 5050, uuid, {from: accounts[0]});
             let updatedResults = await BluzelleESRInstance.getSwarmInfo("TestSwarmID4")
             assert.deepEqual(updatedResults.nodelist,[uuid])
 
@@ -133,9 +133,9 @@ contract('Bluzelle ESR Contract', function(accounts) {
         });
 
         it('should return number of nodes from a specific swarm', async () => {
-            await BluzelleESRInstance.addNode("TestSwarmID6", "127.0.0.1", "node_0", 8080, 5050, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==", {from: accounts[0]});
-            await BluzelleESRInstance.addNode("TestSwarmID6", "127.0.0.1", "node_1", 8080, 5051, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pB==", {from: accounts[0]});
-            await BluzelleESRInstance.addNode("TestSwarmID6", "127.0.0.1", "node_2", 8080, 5052, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pC==", {from: accounts[0]});
+            await BluzelleESRInstance.addNode("TestSwarmID6", "127.0.0.1", "node_0", 5050, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pA==", {from: accounts[0]});
+            await BluzelleESRInstance.addNode("TestSwarmID6", "127.0.0.1", "node_1", 5051, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pB==", {from: accounts[0]});
+            await BluzelleESRInstance.addNode("TestSwarmID6", "127.0.0.1", "node_2", 5052, "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEysScFkwI4d8I65aJnr8UAohqjYCYuBXgMb73Aa0SlQF62+ql4XGuTRoYZVX8L9WrzSlg3m4UY7KrIBJPYS++pC==", {from: accounts[0]});
 
             assert.equal((await BluzelleESRInstance.getNodeCount("TestSwarmID6")).toString(10),3); 
         });
