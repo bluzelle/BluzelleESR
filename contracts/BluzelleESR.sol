@@ -102,7 +102,6 @@ contract BluzelleESR {
     {
         uint j;
         uint k;
-        uint l;
 
         for(j=0; j< swarmList.length; j++) {
             if(keccak256(abi.encodePacked(swarmList[j])) == keccak256(abi.encodePacked(swarmID)))
@@ -176,7 +175,6 @@ contract BluzelleESR {
     {
         uint j;
         uint k;
-        uint l;
 
         for(j=0; j< SwarmStructs[swarmID].nodeList.length; j++) {
             if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeUUID)))
