@@ -42,12 +42,13 @@ module.exports = async function(callback){
                 await BluzelleESRInstance.addNode("BluzelleSwarm",
                     jsonObj[i].host,
                     jsonObj[i].name,
-                    jsonObj[i].http_port,
                     jsonObj[i].port,
                     jsonObj[i].uuid
                     );
             }
             console.log(await BluzelleESRInstance.getSwarmInfo("BluzelleSwarm"));
+            console.log('--------Test Full Node List Retrieval--------')
+            console.log(await BluzelleESRInstance.getFullNodeList())
     }
     //
     // Gas Statistics
