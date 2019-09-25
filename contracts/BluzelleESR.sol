@@ -24,8 +24,20 @@ contract BluzelleESR {
     }
 
     string[] public swarmList;
+
     mapping(string => Node) NodeStructs;
     mapping(string => Swarm) SwarmStructs;
+
+    struct NodesPerSwarm {
+        string swarmID;
+        string nodeUUID;
+        uint256 nodeCount;
+        string nodeHost;
+        string nodeName;
+        uint256 nodePort; 
+    }
+
+    NodesPerSwarm[] nodeCollection;
 
     constructor () public {
         ownerAddress = msg.sender;
@@ -89,12 +101,21 @@ contract BluzelleESR {
     returns(bool)
     {
         uint j;
+        uint k;
+        uint l;
 
         for(j=0; j< swarmList.length; j++) {
             if(keccak256(abi.encodePacked(swarmList[j])) == keccak256(abi.encodePacked(swarmID)))
             {
                 delete swarmList[j];
                 delete SwarmStructs[swarmID];
+            }
+        }
+
+        for(k=0; k< nodeCollection.length; k++) {
+            if(keccak256(abi.encodePacked(nodeCollection[k].swarmID)) == keccak256(abi.encodePacked(swarmID)))
+            {
+                delete nodeCollection[k];
             }
         }
     }
@@ -130,6 +151,18 @@ contract BluzelleESR {
             NodeStructs[nodeUUID].nodeUUID = nodeUUID;
 
             SwarmStructs[swarmID].nodeList.push(nodeUUID);
+
+            // for get all node info function
+            NodesPerSwarm memory indNode = NodesPerSwarm({
+                swarmID: swarmID,
+                nodeUUID: nodeUUID,
+                nodeCount: NodeStructs[nodeUUID].nodeCount,
+                nodeHost: NodeStructs[nodeUUID].nodeHost,
+                nodeName: NodeStructs[nodeUUID].nodeName,
+                nodePort: NodeStructs[nodeUUID].nodePort
+            });
+
+            nodeCollection.push(indNode);
         }
 
         return true;
@@ -142,12 +175,21 @@ contract BluzelleESR {
     returns(bool)
     {
         uint j;
+        uint k;
+        uint l;
 
         for(j=0; j< SwarmStructs[swarmID].nodeList.length; j++) {
             if(keccak256(abi.encodePacked(SwarmStructs[swarmID].nodeList[j])) == keccak256(abi.encodePacked(nodeUUID)))
             {
                 delete SwarmStructs[swarmID].nodeList[j];
                 delete NodeStructs[nodeUUID];
+            }
+        }
+
+        for(k=0; k< nodeCollection.length; k++) {
+            if(keccak256(abi.encodePacked(nodeCollection[k].nodeUUID)) == keccak256(abi.encodePacked(nodeUUID)))
+            {
+                delete nodeCollection[k];
             }
         } 
     }
@@ -230,7 +272,14 @@ contract BluzelleESR {
                 NodeStructs[nodeUUID].nodePort);
             }
         }
+    }
 
+    function getFullNodeList()
+    public view
+    onlyIfActive()
+    returns(NodesPerSwarm[] memory)
+    {
+        return nodeCollection;
     }
 
     //returns the list of swarms by swarm id on the network
