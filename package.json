@@ -18,6 +18,7 @@
   "homepage": "https://github.com/bluzelle/BluzelleESR#readme",
   "dependencies": {
     "fs": "0.0.1-security",
+    "ganache-cli": "^6.7.0",
     "truffle": "^5.0.12",
     "truffle-hdwallet-provider": "^1.0.6"
   }

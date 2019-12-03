@@ -16,13 +16,13 @@ You will also need Ganache (formerly TestRPC), to run this project locally, whic
 
 ## Deploying Local
 
-1) Start Ganache and take note of the port it's running on (i.e. 7545)
+1) Start Ganache and take note of the port it's running on (i.e. 8545)
 2) In the truffle.js file, ensure that the port number for development under networks is the same as your Ganache instance.
 
 ```
     development: {
      host: "127.0.0.1",     // Localhost (default: none)
-     port: 7545,            // Standard Ethereum port (default: none)
+     port: 8545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
     },
 ```
@@ -39,8 +39,14 @@ You will also need Ganache (formerly TestRPC), to run this project locally, whic
 
 4b) If you would like to deploy your contracts to your Ganache instance using an external script (webjs library) then run the following commands from the root directory:
 ```
-    cd scripts
-    npm run truffle exec deploy.js
+    npm run truffle scripts/exec ___.js
+```
+
+4c) If you would like to deploy just peerslist.js to the local machine, run:
+```
+    ./node_modules/.bin/ganache-cli --account="0x1f0d511e990ddbfec302e266d625484f755f6cc6b3161b2e49a2a4e6c4be3d,100000000000000000000"
+
+    npm run truffle scripts/deploy_peerslist.js
 ```
 
 
