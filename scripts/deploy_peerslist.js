@@ -1,9 +1,7 @@
 // Run this first:
 
-// ./node_modules/.bin/ganache-cli --account="0x1f0d511e990ddbfec302e266d62542384f755f6cc6b3161b2e49a2a4e6c4be3d,100000000000000000000"
-
 // or if with ganache-gui, copy one of the keys
-const myAccount = "0xaa81f360c6bbef505b28760fee25443f9d33e499";
+const myAccount = "0x93fd6fe1780881112127d4855EC050F6fF924c20";
 
 
 
