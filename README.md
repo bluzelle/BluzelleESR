@@ -44,7 +44,7 @@ You will also need Ganache (formerly TestRPC), to run this project locally, whic
 
 4c) If you would like to deploy just peerslist.js to the local machine, run:
 ```
-    ./node_modules/.bin/ganache-cli --account="0xbcd80de67971fabd16e8eaa12df6e9e4c99ca034e75d2291c6f39aea3f71b093,100000000000000000000"
+    ./node_modules/.bin/ganache-cli --account="0xbcd80de67971fabd16e8eaa12df6e9e4c99ca034e75d2291c6f39aea3f71b093,100000000000000000000" --host 0.0.0.0 &
 
     npm run truffle scripts/deploy_peerslist.js
 ```

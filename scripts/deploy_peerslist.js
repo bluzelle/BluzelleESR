@@ -4,7 +4,6 @@
 const myAccount = "0x93fd6fe1780881112127d4855EC050F6fF924c20";
 
 
-
 var BluzelleESR = artifacts.require("./BluzelleESR.sol");
 
 var fs = require('fs');
@@ -25,12 +24,14 @@ function recordTransaction(description, receipt, display) {
 
 const addSwarm = async (peerslist, BluzelleESRInstance) => {
 
-    await BluzelleESRInstance.addSwarm("BluzelleSwarm",7,"Canada",true,"Disk",0,[],{ from: myAccount });
+    const swarm_id = "myswarm";
+
+    await BluzelleESRInstance.addSwarm(swarm_id,7,"Canada",true,"Disk",0,[],{ from: myAccount });
 
     for(var i=0; i<peerslist.length; i++){
 
         await BluzelleESRInstance.addNode(
-            "BluzelleSwarm",
+            swarm_id,
             peerslist[i].host,
             peerslist[i].name,
             peerslist[i].port,
